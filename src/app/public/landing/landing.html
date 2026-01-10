@@ -1,57 +1,89 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-  <a class="navbar-brand fw-bold" href="#">🐶 DoggyCare</a>
-  <div class="ms-auto">
-    <a routerLink="/login" class="btn btn-outline-light btn-sm">Iniciar Sesión</a>
+<nav class="navbar navbar-expand-lg fixed-top bg-white py-3 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3 text-doggy-blue d-flex align-items-center" href="#">
+      <i class="bi bi-patch-check-fill me-2"></i> Doggy Care
+    </a>
+
+    <div class="collapse navbar-collapse justify-content-end">
+      <div class="d-flex align-items-center">
+        <a href="#" class="nav-link-custom">Inicio</a>
+        <a href="#galeria" class="nav-link-custom">Boletín de búsqueda</a>
+
+        <a routerLink="/login" class="btn btn-doggy-outline me-2">
+          <i class="bi bi-person"></i> Iniciar sesión
+        </a>
+        <a href="registro" class="btn btn-doggy-primary">
+          Registrarse
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 
-<header class="bg-primary text-white text-center py-5">
+<header class="hero-section position-relative">
   <div class="container">
-    <h1 class="display-4 fw-bold">¡Adopta, no compres!</h1>
-    <p class="lead mb-0">Dale una segunda oportunidad a un amigo fiel.</p>
+    <div class="row align-items-center">
+      <div class="col-lg-6 z-1">
+        <h1 class="display-4 fw-bold text-doggy-dark mb-4">
+          Te ayudamos a <span class="text-doggy-blue">reunirte</span> con tus amigos peludos.
+        </h1>
+        <p class="lead text-doggy-gray mb-5">
+          Nuestro sistema puede ayudarte a encontrar a tu mascota perdida o a adoptar un nuevo amigo.
+        </p>
+        <button class="btn btn-doggy-primary btn-lg shadow-sm">
+          EMPEZAR AHORA
+        </button>
+      </div>
+
+      <div class="col-lg-6 position-relative text-center">
+        <div class="blob-background"></div>
+        <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+             alt="Perros y Gatos" class="img-fluid hero-image rounded-3">
+      </div>
+    </div>
   </div>
 </header>
 
-<div class="container my-5">
-  <h2 class="text-center mb-4 text-secondary">Nuestros Amigos Disponibles</h2>
+<section id="galeria" class="py-5 bg-white">
+  <div class="container py-5">
+    <div class="row mb-5">
+       <div class="col-12">
+           <h2 class="fw-bold text-doggy-dark">Mascotas Recientes</h2>
+           <p class="text-doggy-gray">Explora los últimos amigos registrados en nuestra plataforma.</p>
+       </div>
+    </div>
 
-  <div *ngIf="mascotas.length === 0" class="text-center py-5">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p class="mt-2">Cargando peludos...</p>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let m of mascotas">
-      <div class="card h-100 shadow-sm border-0 hover-effect">
-        <img
-          [src]="m.fotoUrl || 'https://via.placeholder.com/300x200?text=Sin+Foto'"
-          class="card-img-top"
-          alt="{{ m.nombre }}"
-          style="height: 250px; object-fit: cover"
-        />
-
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="card-title fw-bold m-0">{{ m.nombre }}</h5>
-            <span class="badge bg-success">{{ m.sexo }}</span>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let m of mascotas">
+        <div class="card h-100 border-0 shadow-sm doggy-card p-3">
+          <div class="d-flex align-items-center mb-3">
+             <img src="https://i.pravatar.cc/150?u={{m.id}}" class="rounded-circle me-3" width="40" height="40">
+             <div>
+                 <h6 class="fw-bold mb-0 text-doggy-dark">Refugio Patitas</h6>
+                 <small class="text-muted">Protector</small>
+             </div>
           </div>
-          <p class="card-text text-muted small">
-            {{ m.especie }} • {{ m.raza }} <br />
-            Tamaño: {{ m.tamano }}
-          </p>
-          <p class="card-text">{{ m.descripcionPerfil || 'Busco un hogar amoroso...' }}</p>
-        </div>
 
-        <div class="card-footer bg-white border-0 pb-3">
-          <button class="btn btn-outline-primary w-100" (click)="solicitarAdopcion(m)">
-            ¡Quiero Adoptarlo!
-          </button>
+          <div class="card-img-wrapper rounded-3 mb-3 position-relative">
+            <img [src]="m.fotoUrl || 'assets/img/dog-placeholder.jpg'"
+                 class="w-100 h-100"
+                 style="object-fit: cover;"
+                 alt="{{m.nombre}}">
+          </div>
+
+          <div class="card-body p-0">
+            <h5 class="card-title fw-bold text-doggy-dark mb-1">{{ m.nombre }}</h5>
+            <p class="text-doggy-blue fw-semibold mb-3 small">{{ m.raza }} · {{ m.edad }} años</p>
+            <p class="card-text text-doggy-gray small mb-4">
+               Esta mascota está buscando un hogar amoroso. ¡Ven a conocerla!
+            </p>
+
+            <button class="btn btn-doggy-primary w-100 rounded-pill py-2 small">
+              Ver más
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<footer class="bg-dark text-white text-center py-3 mt-5">
-  <small>&copy; 2026 Refugio DoggyCare.</small>
-</footer>
+</section>

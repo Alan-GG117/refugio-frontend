@@ -1,0 +1,93 @@
+/* ================= ESTILOS GENERALES ================= */
+/* Azul Vibrante (Doggy Blue) */
+.text-doggy-blue { color: #2563eb !important; }
+/* Azul Oscuro (Textos) */
+.text-doggy-dark { color: #1e293b !important; }
+/* Gris (Subtítulos) */
+.text-doggy-gray { color: #64748b !important; }
+
+/* Fondo Azul Claro */
+.bg-doggy-light { background-color: #eff6ff !important; }
+
+/* Botón Sólido Azul (EMPEZAR AHORA) */
+.btn-doggy-primary {
+    background-color: #2563eb; /* Color directo */
+    color: white;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    transition: background-color 0.3s;
+}
+.btn-doggy-primary:hover { background-color: #1d4ed8; }
+
+/* Botón Borde Azul (INICIAR SESIÓN) */
+.btn-doggy-outline {
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    transition: all 0.3s;
+}
+.btn-doggy-outline:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+/* Links del Navbar */
+.nav-link-custom {
+    color: #64748b;
+    font-weight: 500;
+    margin-right: 1.5rem;
+    text-decoration: none;
+}
+.nav-link-custom:hover { color: #2563eb; }
+
+/* ================= HERO SECTION ================= */
+.hero-section {
+    padding-top: 80px; /* Ajustado para que no choque con navbar */
+    padding-bottom: 80px;
+    background: white;
+    overflow: hidden;
+}
+
+/* Mancha Azul de Fondo */
+.blob-background {
+    position: absolute;
+    top: 50%;
+    right: -10%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: 600px;
+    background-color: #eff6ff; /* Azul muy clarito */
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    z-index: 0;
+}
+
+.hero-image {
+    position: relative;
+    z-index: 1;
+    max-height: 500px;
+    /* Sombra suave para que destaque */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+}
+
+/* ================= TARJETAS ================= */
+.doggy-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: white;
+}
+.doggy-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1);
+    border-color: #2563eb;
+}
+.card-img-wrapper {
+    height: 220px;
+    overflow: hidden;
+}

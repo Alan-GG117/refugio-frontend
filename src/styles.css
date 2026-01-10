@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+/* ================= COLORES GLOBALES DOGGY CARE ================= */
+
+/* Texto Azul */
+.text-doggy-blue { color: #2563eb !important; }
+/* Texto Gris */
+.text-doggy-gray { color: #64748b !important; }
+
+/* Fondos */
+.bg-doggy-light { background-color: #eff6ff !important; }
+
+/* --- BOTONES (Para usar en Login, Registro y Landing) --- */
+
+.btn-doggy-primary {
+    background-color: #2563eb;
+    color: white;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-doggy-primary:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+/* Links del Navbar */
+.nav-link-custom {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+}
+.nav-link-custom:hover { color: #2563eb; }

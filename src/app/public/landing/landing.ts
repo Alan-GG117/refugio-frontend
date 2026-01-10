@@ -9,7 +9,7 @@ import { Solicitud } from '../../services/solicitud';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, CommonModule, ],
   templateUrl: './landing.html',
   styleUrl: './landing.css',
 })
