@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Usuario {
-  private apiUrl = 'http://localhost:8080/api/usuarios';
+  private apiUrl = 'https://refugio-backend-production.up.railway.app/api/mascotas';
 
   constructor(private http: HttpClient) { }
 
