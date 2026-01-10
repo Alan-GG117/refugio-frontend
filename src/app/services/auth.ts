@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class Auth {
 
   //Url del backend Java
-  private apiUrl = 'https://refugio-backend-production.up.railway.app/api/mascotas';
+  private apiUrl = 'https://refugio-backend-production.up.railway.app/api/auth';
 
   constructor(private http: HttpClient){ }
 

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class Cita {
 
-  private apiUrl = 'https://refugio-backend-production.up.railway.app/api/mascotas';
+  private apiUrl = 'https://refugio-backend-production.up.railway.app/api/citas';
 
   constructor (private http: HttpClient) {}
 
