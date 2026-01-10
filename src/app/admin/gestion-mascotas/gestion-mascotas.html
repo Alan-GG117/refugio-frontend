@@ -1,0 +1,165 @@
+<div class="container-fluid">
+  <h2 class="mb-4">Gestión de Rescates</h2>
+
+  <button class="btn btn-primary mb-3" (click)="mostrarFormulario = !mostrarFormulario">
+    <i class="bi" [class.bi-plus-lg]="!mostrarFormulario" [class.bi-x-lg]="mostrarFormulario"></i>
+    {{ mostrarFormulario ? 'Cancelar' : 'Nueva Mascota' }}
+  </button>
+
+  <div *ngIf="mostrarFormulario" class="card shadow mb-4">
+    <div class="card-header bg-success text-white">Registrar Nuevo Ingreso</div>
+    <div class="card-body">
+      <form (ngSubmit)="guardar()">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="nuevaMascota.nombre"
+              name="nombre"
+              required
+            />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Especie</label>
+            <select class="form-select" [(ngModel)]="nuevaMascota.especie" name="especie">
+              <option value="PERRO">Perro</option>
+              <option value="GATO">Gato</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Raza (Aprox)</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevaMascota.raza" name="raza" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Sexo</label>
+            <select class="form-select" [(ngModel)]="nuevaMascota.sexo" name="sexo">
+              <option value="MACHO">Macho</option>
+              <option value="HEMBRA">Hembra</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Tamaño</label>
+            <select class="form-select" [(ngModel)]="nuevaMascota.tamano" name="tamano">
+              <option value="PEQUENO">Pequeño</option>
+              <option value="MEDIANO">Mediano</option>
+              <option value="GRANDE">Grande</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Peso (kg)</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="nuevaMascota.pesoActual"
+              name="peso"
+            />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Nacimiento Aprox</label>
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="nuevaMascota.fechaNacimientoAprox"
+              name="fecha"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Foto URL (Pega un link de internet)</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="nuevaMascota.fotoUrl"
+            name="foto"
+            placeholder="https://..."
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Historia / Descripción</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="nuevaMascota.descripcionPerfil"
+            name="desc"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">
+          {{ nuevaMascota.id ? 'Actualizar Mascota' : 'Guardar Mascota' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Foto</th>
+              <th>Nombre</th>
+              <th>Detalles</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of mascotas">
+              <td>
+                <img
+                  [src]="m.fotoUrl || 'https://via.placeholder.com/50'"
+                  class="rounded-circle"
+                  width="50"
+                  height="50"
+                  style="object-fit: cover"
+                />
+              </td>
+              <td class="fw-bold">{{ m.nombre }}</td>
+              <td>
+                <small class="text-muted">
+                  {{ m.especie }} | {{ m.raza }} <br />
+                  {{ m.sexo }} | {{ m.tamano }}
+                </small>
+              </td>
+              <td>
+                <span
+                  class="badge"
+                  [class.bg-success]="m.estadoAdopcion === 'DISPONIBLE'"
+                  [class.bg-secondary]="m.estadoAdopcion !== 'DISPONIBLE'"
+                >
+                  {{ m.estadoAdopcion }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(m)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminar(m.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
+                <a
+                  [routerLink]="['/admin/mascotas', m.id, 'historial']"
+                  class="btn btn-sm btn-info me-1 text-white"
+                  title="Historial Médico"
+                >
+                  <i class="bi bi-activity"></i>
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf="mascotas.length === 0">
+              <td colspan="5" class="text-center py-4">No hay mascotas registradas aún.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

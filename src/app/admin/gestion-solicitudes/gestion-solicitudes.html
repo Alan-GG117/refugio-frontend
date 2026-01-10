@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <h2 class="mb-4">Buzón de Solicitudes</h2>
+
+    <div class="card shadow">
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Interesado</th>
+                        <th>Mascota</th>
+                        <th>Mensaje</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of solicitudes">
+                        <td>{{ s.fechaSolicitud | date:'shortDate' }}</td>
+                        <td>
+                            <div class="fw-bold">{{ s.usuario.nombre }}</div>
+                            <small class="text-muted">{{ s.usuario.email }}</small>
+                        </td>
+                        <td>
+                            <img [src]="s.mascota.fotoUrl" width="40" class="rounded-circle me-2">
+                            {{ s.mascota.nombre }}
+                        </td>
+                        <td><small>{{ s.comentarios }}</small></td>
+                        <td>
+                            <span class="badge"
+                                  [class.bg-warning]="s.estado === 'PENDIENTE'"
+                                  [class.bg-success]="s.estado === 'APROBADA'"
+                                  [class.bg-danger]="s.estado === 'RECHAZADA'">
+                                {{ s.estado }}
+                            </span>
+                        </td>
+                        <td>
+                            <div *ngIf="s.estado === 'PENDIENTE'">
+                                <button class="btn btn-sm btn-success me-2" (click)="actualizar(s, 'APROBADA')">
+                                    <i class="bi bi-check-lg"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" (click)="actualizar(s, 'RECHAZADA')">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="solicitudes.length === 0">
+                        <td colspan="6" class="text-center py-4">No hay solicitudes pendientes.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

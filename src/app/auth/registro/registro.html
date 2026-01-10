@@ -1,0 +1,122 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>Registro de Nuevo Usuario</h3>
+        </div>
+        <div class="card-body p-4">
+
+          <form (ngSubmit)="registrar()">
+
+            <h5 class="mb-3 text-secondary">Datos Personales</h5>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Apellido Paterno</label>
+                <input type="text" class="form-control" [(ngModel)]="usuario.apellidoPaterno" name="apPaterno" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Apellido Materno</label>
+                <input type="text" class="form-control" [(ngModel)]="usuario.apellidoMaterno" name="apMaterno">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="usuario.email" name="email" required>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Contraseña</label>
+                <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" class="form-control" [(ngModel)]="usuario.telefono" name="telefono" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Ocupación</label>
+              <input type="text" class="form-control" [(ngModel)]="usuario.ocupacion" name="ocupacion" placeholder="Ej. Estudiante, Veterinario...">
+            </div>
+
+            <hr class="my-4">
+
+            <h5 class="mb-3 text-secondary">Dirección</h5>
+
+            <div class="row align-items-end mb-3">
+              <div class="col-md-4">
+                <label class="form-label">Código Postal</label>
+                <input type="text" class="form-control" [(ngModel)]="direccion.cp" (input)="buscarCP()" name="cp" maxlength="5" required>
+              </div>
+              <div class="col-md-8">
+                <small *ngIf="cargandoCP" class="text-primary">Buscando dirección...</small>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Estado</label>
+                <input type="text" class="form-control" [(ngModel)]="direccion.estado" name="estado" readonly>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Alcaldía / Municipio</label>
+                <input type="text" class="form-control" [(ngModel)]="direccion.municipioAlcaldia" name="municipio" readonly>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Colonia</label>
+              <select class="form-select" [(ngModel)]="direccion.colonia" name="colonia" [disabled]="colonias.length === 0">
+                <option *ngFor="let col of colonias" [value]="col">{{ col }}</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Tipo Calle</label>
+                <select class="form-select" [(ngModel)]="direccion.tipoCalle" name="tipoCalle">
+                  <option value="Calle">Calle</option>
+                  <option value="Avenida">Avenida</option>
+                  <option value="Boulevard">Boulevard</option>
+                  <option value="Cerrada">Cerrada</option>
+                </select>
+              </div>
+              <div class="col-md-8 mb-3">
+                <label class="form-label">Nombre Calle</label>
+                <input type="text" class="form-control" [(ngModel)]="direccion.calle" name="calle" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Num. Exterior</label>
+                <input type="text" class="form-control" [(ngModel)]="direccion.numExterior" name="numExt" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Num. Interior</label>
+                <input type="text" class="form-control" [(ngModel)]="direccion.numInterior" name="numInt">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Referencias</label>
+              <textarea class="form-control" [(ngModel)]="direccion.referencias" name="referencias" rows="2"></textarea>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-primary btn-lg">Registrar Usuario</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

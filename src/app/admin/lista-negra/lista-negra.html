@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="d-flex align-items-center mb-4 text-danger">
+        <i class="bi bi-shield-slash-fill fs-2 me-2"></i>
+        <h2 class="mb-0">Lista Negra de Adoptantes</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow border-0 mb-4 border-start border-danger border-5">
+                <div class="card-header bg-danger text-white">
+                    <i class="bi bi-person-x"></i> Vetar Usuario
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="guardar()">
+                        <div class="mb-2">
+                            <label class="small fw-bold">Nombre</label>
+                            <input type="text" class="form-control" [(ngModel)]="nuevoVeto.nombre" name="nom" required>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <label class="small fw-bold">Ap. Paterno</label>
+                                <input type="text" class="form-control" [(ngModel)]="nuevoVeto.apellidoPaterno" name="apP" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="small fw-bold">Ap. Materno</label>
+                                <input type="text" class="form-control" [(ngModel)]="nuevoVeto.apellidoMaterno" name="apM">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="small fw-bold">Email</label>
+                            <input type="email" class="form-control" [(ngModel)]="nuevoVeto.email" name="email">
+                        </div>
+                        <div class="mb-2">
+                            <label class="small fw-bold">INE / Identificación</label>
+                            <input type="text" class="form-control" [(ngModel)]="nuevoVeto.identificacionOficial" name="ine">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small fw-bold text-danger">Motivo del Bloqueo</label>
+                            <textarea class="form-control" rows="3" [(ngModel)]="nuevoVeto.motivo" name="motivo" placeholder="Ej: Maltrato, abandono previo..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100">
+                            Confirmar Bloqueo
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-body table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Persona</th>
+                                <th>Motivo</th>
+                                <th>Fecha</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let v of vetados">
+                                <td>
+                                    <span class="fw-bold">{{ v.nombre }} {{ v.apellidoPaterno }}</span><br>
+                                    <small class="text-muted">{{ v.email }}</small><br>
+                                    <span class="badge bg-secondary" *ngIf="v.identificacionOficial">ID: {{ v.identificacionOficial }}</span>
+                                </td>
+                                <td class="text-danger fst-italic">
+                                    "{{ v.motivoBloqueo }}"
+                                </td>
+                                <td>
+                                    <small>{{ v.fechaRegistro | date:'shortDate' }}</small>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-success" (click)="eliminar(v.id)" title="Desbloquear">
+                                        <i class="bi bi-unlock"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="vetados.length === 0">
+                                <td colspan="4" class="text-center py-4 text-muted">No hay usuarios en lista negra.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

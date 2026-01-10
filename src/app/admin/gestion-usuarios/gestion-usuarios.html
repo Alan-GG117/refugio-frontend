@@ -1,0 +1,112 @@
+<div class="container-fluid">
+    <h2 class="mb-4">Gestión de Usuarios y Accesos</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="bi bi-person-plus-fill me-2"></i> Nuevo Usuario
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="guardar()">
+
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold">Nombre(s)</label>
+                            <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.nombre" name="nombre" placeholder="Ej: Juan Carlos" required>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Apellido Paterno</label>
+                                <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.apellidoPaterno" name="apP" placeholder="Pérez" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Apellido Materno</label>
+                                <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.apellidoMaterno" name="apM" placeholder="López">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Correo Electrónico</label>
+                            <input type="email" class="form-control" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="usuario@email.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Contraseña Temporal</label>
+                            <input type="password" class="form-control" [(ngModel)]="nuevoUsuario.password" name="pass" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold">Rol (Permisos)</label>
+                            <select class="form-select" [(ngModel)]="nuevoUsuario.rol" name="rol">
+                                <option value="ROLE_ADOPTANTE">Adoptante (Público)</option>
+                                <option value="ROLE_ADMIN">Administrador (Acceso Total)</option>
+                                <option value="ROLE_VET">Veterinario (Limitado)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100">
+                            <i class="bi bi-save me-2"></i> Crear Usuario
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0 text-muted">Usuarios Registrados</h5>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">Usuario</th>
+                                <th>Rol</th>
+                                <th class="text-end pe-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let u of usuarios">
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light rounded-circle p-2 me-3 text-center fw-bold text-primary d-flex align-items-center justify-content-center" style="width:45px; height:45px; font-size: 1.2rem;">
+                                            {{ u.nombre ? u.nombre.charAt(0) : '?' }}
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">
+                                                {{ u.nombre }} {{ u.apellidoPaterno }} {{ u.apellidoMaterno }}
+                                            </div>
+                                            <div class="text-muted small">{{ u.email }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill"
+                                          [class.bg-danger]="u.rol === 'ROLE_ADMIN'"
+                                          [class.bg-success]="u.rol === 'ROLE_VET'"
+                                          [class.bg-primary]="u.rol === 'ROLE_ADOPTANTE' || !u.rol">
+
+                                        {{ u.rol ? u.rol.replace('ROLE_', '') : 'SIN ROL' }}
+                                    </span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="btn btn-sm btn-outline-danger" (click)="eliminar(u.id)" title="Eliminar Usuario">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="usuarios.length === 0">
+                                <td colspan="3" class="text-center py-5 text-muted">
+                                    No hay usuarios encontrados.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

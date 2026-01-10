@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand fw-bold" href="#">🐶 DoggyCare</a>
+  <div class="ms-auto">
+    <a routerLink="/login" class="btn btn-outline-light btn-sm">Iniciar Sesión</a>
+  </div>
+</nav>
+
+<header class="bg-primary text-white text-center py-5">
+  <div class="container">
+    <h1 class="display-4 fw-bold">¡Adopta, no compres!</h1>
+    <p class="lead mb-0">Dale una segunda oportunidad a un amigo fiel.</p>
+  </div>
+</header>
+
+<div class="container my-5">
+  <h2 class="text-center mb-4 text-secondary">Nuestros Amigos Disponibles</h2>
+
+  <div *ngIf="mascotas.length === 0" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Cargando peludos...</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let m of mascotas">
+      <div class="card h-100 shadow-sm border-0 hover-effect">
+        <img
+          [src]="m.fotoUrl || 'https://via.placeholder.com/300x200?text=Sin+Foto'"
+          class="card-img-top"
+          alt="{{ m.nombre }}"
+          style="height: 250px; object-fit: cover"
+        />
+
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title fw-bold m-0">{{ m.nombre }}</h5>
+            <span class="badge bg-success">{{ m.sexo }}</span>
+          </div>
+          <p class="card-text text-muted small">
+            {{ m.especie }} • {{ m.raza }} <br />
+            Tamaño: {{ m.tamano }}
+          </p>
+          <p class="card-text">{{ m.descripcionPerfil || 'Busco un hogar amoroso...' }}</p>
+        </div>
+
+        <div class="card-footer bg-white border-0 pb-3">
+          <button class="btn btn-outline-primary w-100" (click)="solicitarAdopcion(m)">
+            ¡Quiero Adoptarlo!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  <small>&copy; 2026 Refugio DoggyCare.</small>
+</footer>

@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <h2 class="mb-4">Gestión de Acreedores</h2>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-primary text-white">
+                    {{ nuevoAcreedor.id ? 'Editar' : 'Registrar' }} Acreedor
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="guardar()">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Razón Social (Empresa)</label>
+                            <input type="text" class="form-control" [(ngModel)]="nuevoAcreedor.razonSocial" name="razon" placeholder="Ej: Purina S.A. de C.V." required>
+                        </div>
+
+                        <hr>
+                        <h6 class="text-muted">Datos del Contacto</h6>
+
+                        <div class="mb-2">
+                            <label class="small">Nombre</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nuevoAcreedor.nombreContacto" name="nomC">
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="small">Apellido Paterno</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="nuevoAcreedor.apellidoPaternoContacto" name="apeP">
+                            </div>
+                            <div class="col-6">
+                                <label class="small">Apellido Materno</label>
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="nuevoAcreedor.apellidoMaternoContacto" name="apeM">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" [(ngModel)]="nuevoAcreedor.telefono" name="tel">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Servicio</label>
+                                <select class="form-select" [(ngModel)]="nuevoAcreedor.tipoServicio" name="tipo">
+                                    <option value="ALIMENTO">Alimento</option>
+                                    <option value="VETERINARIA">Veterinaria</option>
+                                    <option value="LIMPIEZA">Limpieza</option>
+                                    <option value="SERVICIOS">Luz/Agua/Gas</option>
+                                    <option value="OTROS">Otros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" [(ngModel)]="nuevoAcreedor.email" name="email">
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-save"></i> Guardar
+                            </button>
+                            <button type="button" class="btn btn-secondary" (click)="limpiar()" *ngIf="nuevoAcreedor.id">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card shadow border-0">
+                <div class="card-body table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Empresa</th>
+                                <th>Contacto</th>
+                                <th>Servicio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let a of acreedores">
+                                <td>
+                                    <span class="fw-bold">{{ a.razonSocial }}</span><br>
+                                    <small class="text-muted">{{ a.email }}</small>
+                                </td>
+                                <td>
+                                    {{ a.nombreContacto }} {{ a.apellidoPaternoContacto }}<br>
+                                    <small class="text-primary"><i class="bi bi-telephone"></i> {{ a.telefono }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info text-dark">{{ a.tipoServicio }}</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary me-1" (click)="editar(a)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" (click)="eliminar(a.id)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="acreedores.length === 0">
+                                <td colspan="4" class="text-center py-4 text-muted">No hay acreedores registrados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
