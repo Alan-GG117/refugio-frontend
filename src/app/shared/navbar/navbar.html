@@ -9,17 +9,34 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <div class="d-flex align-items-center gap-3">
         <a routerLink="/" class="nav-link-custom">Inicio</a>
+
         <a routerLink="/landing" fragment="galeria" class="nav-link-custom">Mascotas</a>
 
-        <a routerLink="/login" class="btn btn-doggy-outline">
-          <i class="bi bi-person"></i> Iniciar sesión
-        </a>
-        <a routerLink="/registro" class="btn btn-doggy-primary">
-          Registrarse
-        </a>
+        <ng-container *ngIf="!usuario">
+          <a routerLink="/login" class="btn btn-doggy-outline">
+            <i class="bi bi-person"></i> Iniciar sesión
+          </a>
+          <a routerLink="/registro" class="btn btn-doggy-primary">
+            Registrarse
+          </a>
+        </ng-container>
+
+        <ng-container *ngIf="usuario">
+          <div class="d-flex align-items-center border-start ps-3 ms-2">
+            <span class="text-secondary me-3 small">
+              Bienvenido, <span class="fw-bold text-doggy-blue">{{ usuario.nombre }}</span>
+            </span>
+            <button (click)="cerrarSesion()" class="btn btn-sm btn-outline-danger">
+              <i class="bi bi-box-arrow-right"></i> Salir
+            </button>
+          </div>
+        </ng-container>
+
       </div>
+    </div>
     </div>
   </div>
 </nav>
