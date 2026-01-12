@@ -23,7 +23,6 @@ export class Login {
   iniciarSesion() {
     this.authService.login(this.credenciales).subscribe({
       next: (data) => {
-        console.log("Login correcto: ", data);
 
         //Guardar la sesión en el navegador
         this.authService.guardarSesion(data);

@@ -43,7 +43,6 @@ export class Landing implements OnInit {
     if (sesion) {
       this.usuarioLogueado = true;
       this.datosUsuario = JSON.parse(sesion);
-      console.log("✅ Sesión recuperada:", this.datosUsuario); // Esto debe mostrar datos, no {}
     } else {
       this.usuarioLogueado = false;
       this.datosUsuario = {};
