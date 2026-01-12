@@ -1,4 +1,3 @@
-
 <header class="hero-section position-relative">
   <div class="container">
     <div class="row align-items-center">
@@ -7,17 +6,19 @@
           Te ayudamos a <span class="text-doggy-blue">reunirte</span> con tus amigos peludos.
         </h1>
         <p class="lead text-doggy-gray mb-5">
-          Nuestro sistema puede ayudarte a encontrar a tu mascota perdida o a adoptar un nuevo amigo.
+          Nuestro sistema puede ayudarte a encontrar a tu mascota perdida o a adoptar un nuevo
+          amigo.
         </p>
-        <button class="btn btn-doggy-primary btn-lg shadow-sm">
-          EMPEZAR AHORA
-        </button>
+        <button class="btn btn-doggy-primary btn-lg shadow-sm">EMPEZAR AHORA</button>
       </div>
 
       <div class="col-lg-6 position-relative text-center">
         <div class="blob-background"></div>
-        <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-             alt="Perros y Gatos" class="img-fluid hero-image rounded-3">
+        <img
+          src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+          alt="Perros y Gatos"
+          class="img-fluid hero-image rounded-3"
+        />
       </div>
     </div>
   </div>
@@ -26,39 +27,49 @@
 <section id="galeria" class="py-5 bg-white">
   <div class="container py-5">
     <div class="row mb-5">
-       <div class="col-12">
-           <h2 class="fw-bold text-doggy-dark">Mascotas Recientes</h2>
-           <p class="text-doggy-gray">Explora los últimos amigos registrados en nuestra plataforma.</p>
-       </div>
+      <div class="col-12">
+        <h2 class="fw-bold text-doggy-dark">Mascotas Recientes</h2>
+        <p class="text-doggy-gray">Explora los últimos amigos registrados en nuestra plataforma.</p>
+      </div>
     </div>
 
     <div class="row g-4">
       <div class="col-md-6 col-lg-4" *ngFor="let m of mascotas">
         <div class="card h-100 border-0 shadow-sm doggy-card p-3">
           <div class="d-flex align-items-center mb-3">
-             <img src="https://i.pravatar.cc/150?u={{m.id}}" class="rounded-circle me-3" width="40" height="40">
-             <div>
-                 <h6 class="fw-bold mb-0 text-doggy-dark">Refugio Patitas</h6>
-                 <small class="text-muted">Protector</small>
-             </div>
+            <img
+              src="https://i.pravatar.cc/150?u={{ m.id }}"
+              class="rounded-circle me-3"
+              width="40"
+              height="40"
+            />
+            <div>
+              <h6 class="fw-bold mb-0 text-doggy-dark">Refugio Patitas</h6>
+              <small class="text-muted">Protector</small>
+            </div>
           </div>
 
           <div class="card-img-wrapper rounded-3 mb-3 position-relative">
-            <img [src]="m.fotoUrl || 'assets/img/dog-placeholder.jpg'"
-                 class="w-100 h-100"
-                 style="object-fit: cover;"
-                 alt="{{m.nombre}}">
+            <img
+              [src]="m.fotoUrl || 'assets/img/dog-placeholder.jpg'"
+              class="w-100 h-100"
+              style="object-fit: cover"
+              alt="{{ m.nombre }}"
+            />
           </div>
 
           <div class="card-body p-0">
             <h5 class="card-title fw-bold text-doggy-dark mb-1">{{ m.nombre }}</h5>
             <p class="text-doggy-blue fw-semibold mb-3 small">{{ m.raza }} · {{ m.edad }} años</p>
             <p class="card-text text-doggy-gray small mb-4">
-               Esta mascota está buscando un hogar amoroso. ¡Ven a conocerla!
+              Esta mascota está buscando un hogar amoroso. ¡Ven a conocerla!
             </p>
 
-            <button class="btn btn-doggy-primary w-100 rounded-pill py-2 small">
-              Ver más
+            <button
+              class="btn btn-doggy-primary w-100 rounded-pill py-2 small"
+              (click)="solicitarAdopcion(m)"
+            >
+              <i class="bi bi-heart-fill me-1"></i> Solicitar Adopción
             </button>
           </div>
         </div>

@@ -51,7 +51,6 @@ export class Landing implements OnInit {
 
   solicitarAdopcion(mascota: any) {
     if (!this.usuarioLogueado) {
-      // CASO 1: NO ESTÁ LOGUEADO
       Swal.fire({
         title: 'Inicia Sesión',
         text: 'Necesitas una cuenta para adoptar a ' + mascota.nombre,
@@ -65,12 +64,10 @@ export class Landing implements OnInit {
         }
       });
     } else {
-      // CASO 2: LOGUEADO - CORRECCIÓN AQUÍ
 
       console.log("Intentando enviar solicitud con ID:", this.datosUsuario.usuarioId);
 
       const solicitudDTO = {
-        // TU ERROR ESTABA AQUÍ: Angular buscaba .id, pero tu backend manda .usuarioId
         usuarioId: this.datosUsuario.usuarioId || this.datosUsuario.id,
 
         mascotaId: mascota.id,
