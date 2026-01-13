@@ -44,7 +44,6 @@ export class Registro {
     private router: Router
   ) {}
 
-  //Busqueda de CP (API Externa)
   buscarCP() {
     if(this.direccion.cp.length !== 5) return;
 
@@ -55,27 +54,38 @@ export class Registro {
     this.http.get<any>(url).subscribe({
       next: (data) => {
         if(!data.error) {
-          const info = Array.isArray(data) ? data[0].response : data.response;
 
-        this.direccion.estado = info.estado;
-        this.direccion.municipioAlcaldia = info.municipio;
+          if (Array.isArray(data)) {
+            this.direccion.estado = data[0].response.estado;
+            this.direccion.municipioAlcaldia = data[0].response.municipio;
 
-        const asentamientos = info.asentamiento;
-        this.colonias = Array.isArray(asentamientos) ? asentamientos: [asentamientos];
+            this.colonias = data.map((item: any) => item.response.asentamiento);
+          }
+          else {
+            const info = data.response;
+            this.direccion.estado = info.estado;
+            this.direccion.municipioAlcaldia = info.municipio;
 
-        if(this.colonias.length > 0)this.direccion.colonia = this.colonias[0];
+            this.colonias = Array.isArray(info.asentamiento)
+                            ? info.asentamiento
+                            : [info.asentamiento];
+          }
+
+          if(this.colonias.length > 0) {
+            this.direccion.colonia = this.colonias[0];
+          }
         }
         this.cargandoCP = false;
       },
       error: (err) => {
         console.error(err);
         this.cargandoCP = false;
+        this.colonias = [];
       }
     });
   }
 
   registrar() {
-    //Armado del JSON final
     const payload = {
       usuario: this.usuario,
       direccion: this.direccion
