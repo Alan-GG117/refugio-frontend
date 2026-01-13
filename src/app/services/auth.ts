@@ -1,18 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
 
-  //Url del backend Java
   private apiUrl = 'https://refugio-backend-production.up.railway.app/api/auth';
+
+  private usuarioSubject = new BehaviorSubject<any>(this.obtenerUsuarioStorage());
+
+  public usuario$ = this.usuarioSubject.asObservable();
 
   constructor(private http: HttpClient){ }
 
-  registrarUsuario(datos: any):Observable<any> {
+  private obtenerUsuarioStorage(): any {
+    const sesion = localStorage.getItem('usuario_sesion');
+    return sesion ? JSON.parse(sesion) : null;
+  }
+
+  registrarUsuario(datos: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/registro`, datos);
   }
 
@@ -21,6 +29,16 @@ export class Auth {
   }
 
   guardarSesion(datosUsuarios: any) {
-    localStorage.setItem('usuario_sesion', JSON.stringify(datosUsuarios))
+    localStorage.setItem('usuario_sesion', JSON.stringify(datosUsuarios));
+    this.usuarioSubject.next(datosUsuarios);
+  }
+
+  logout() {
+    localStorage.removeItem('usuario_sesion');
+    this.usuarioSubject.next(null);
+  }
+
+  get usuarioActual() {
+    return this.usuarioSubject.value;
   }
 }

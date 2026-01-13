@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -12,24 +13,16 @@ import { Router, RouterLink } from '@angular/router';
 export class Navbar implements OnInit {
   usuario: any = null;
 
-  constructor(private router: Router) {}
+  constructor(private authService: Auth, private router: Router) {}
 
   ngOnInit() {
-    this.verificarSesion();
-  }
-
-  verificarSesion() {
-    const sesion = localStorage.getItem('usuario_sesion');
-    if (sesion) {
-      this.usuario = JSON.parse(sesion);
-    } else {
-      this.usuario = null;
-    }
+    this.authService.usuario$.subscribe(datosUsuario => {
+      this.usuario = datosUsuario;
+    });
   }
 
   cerrarSesion() {
-    localStorage.removeItem('usuario_sesion');
-    this.usuario = null;
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
