@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { Mascotas } from '../../services/mascotas';
 import { Solicitud } from '../../services/solicitud';
 import { Acreedor } from '../../services/acreedor';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,10 +21,13 @@ export class Dashboard implements OnInit {
     private router: Router,
     private mascotaService: Mascotas,
     private solicitudService: Solicitud,
-    private acreedorService: Acreedor
+    private acreedorService: Acreedor,
+    private authService: Auth
   ) {}
 
   ngOnInit() {
+    this.cargarEstadisticas();
+
     const datos = localStorage.getItem('usuario_sesion');
     if (datos) {
       this.usuario = JSON.parse(datos);
@@ -31,12 +35,13 @@ export class Dashboard implements OnInit {
   }
 
   cerrarSesion() {
-    localStorage.removeItem('usuario_sesion');
+
+    this.authService.logout();
+
     this.router.navigate(['/login']);
   }
 
   cargarEstadisticas() {
-
     this.mascotaService.obtenerTodas().subscribe({
       next: (data) => this.totalMascotas = data.length
     });
